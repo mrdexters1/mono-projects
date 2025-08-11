@@ -14,10 +14,13 @@
     "dev": "turbo run dev --parallel",
     "dev:web": "turbo run dev --filter=@apps/top-tokens",
     "dev:hardware": "turbo run dev --filter=@apps/hardware-picker-ai",
+    "dev:itfam": "turbo run dev --filter=@apps/itfam",
     "build": "turbo run build",
     "build:web": "turbo run build --filter=@apps/top-tokens",
+    "build:itfam": "turbo run build --filter=@apps/itfam",
     "build:hardware": "turbo run build --filter=@apps/hardware-picker-ai",
     "start:web": "turbo run start --filter=@apps/top-tokens",
+    "start:itfam": "turbo run start --filter=@apps/itfam",
     "start:hardware": "turbo run start --filter=@apps/hardware-picker-ai"
   },
   "dependencies": {

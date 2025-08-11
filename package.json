@@ -1,0 +1,27 @@
+{
+  "name": "projects-monorepo",
+  "private": true,
+  "packageManager": "npm@10.9.2",
+  "workspaces": [
+    "apps/*",
+    "toolbox"
+  ],
+  "devDependencies": {
+    "tsconfig-paths-webpack-plugin": "^4.2.0",
+    "turbo": "^2.5.5"
+  },
+  "scripts": {
+    "dev": "turbo run dev --parallel",
+    "dev:web": "turbo run dev --filter=@apps/top-tokens",
+    "dev:hardware": "turbo run dev --filter=@apps/hardware-picker-ai",
+    "build": "turbo run build",
+    "build:web": "turbo run build --filter=@apps/top-tokens",
+    "build:hardware": "turbo run build --filter=@apps/hardware-picker-ai",
+    "start:web": "turbo run start --filter=@apps/top-tokens",
+    "start:hardware": "turbo run start --filter=@apps/hardware-picker-ai"
+  },
+  "dependencies": {
+    "@radix-ui/react-scroll-area": "^1.2.9",
+    "@radix-ui/react-slot": "^1.2.3"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "toolbox",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./lib/*": "./lib/*",
+    "./components/*": "./components/*",
+    "./styles/*": "./styles/*"
+  }
+}

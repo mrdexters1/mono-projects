@@ -1,0 +1,33 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.1.4/schema.json",
+
+  "files": {  "experimentalScannerIgnores": ["node_modules", ".git", "dist", "build"]
+  },
+
+  "linter": {
+    "rules": {
+      "suspicious": {
+        "noArrayIndexKey": "off"
+      }
+    }
+  },
+
+  "formatter": {
+    "formatWithErrors": true,
+    "enabled": true,
+    "lineWidth": 120,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "attributePosition": "multiline",
+    "bracketSpacing": true,
+    "bracketSameLine": false
+  },
+  "json": {
+    "parser": {
+      "allowComments": true
+    },
+    "formatter": {
+      "indentStyle": "space"
+    }
+  }
+}

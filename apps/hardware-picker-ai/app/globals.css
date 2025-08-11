@@ -1,0 +1,5 @@
+@import "../../../toolbox/styles/theme.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

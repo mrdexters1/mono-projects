@@ -1,5 +1,15 @@
-@import "../../../toolbox/styles/theme.css";
+@import "tailwindcss";
+@import "toolbox/styles/theme.css";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+body {
+  font-family: var(--font-dm-sans);
+}
+
+@layer components {
+  .glass-card {
+    background-color: rgb(var(--glass-background));
+    border: 1px solid rgb(var(--glass-border));
+    box-shadow: var(--glass-shadow);
+    backdrop-filter: blur(12px);
+  }
+}

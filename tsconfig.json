@@ -23,7 +23,8 @@
       "toolbox/*": ["toolbox/*"],
 
       "@top/*": ["apps/top-tokens/app/*"],
-      "@hardware/*": ["apps/hardware-picker-ai/app/*"]
+      "@hardware/*": ["apps/hardware-picker-ai/app/*"],
+      "@upwork/*": ["apps/upwork/app/*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx"],

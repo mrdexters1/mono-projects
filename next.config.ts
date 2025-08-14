@@ -3,6 +3,9 @@ import type { NextConfig } from "next";
 import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin";
 
 const nextConfig: NextConfig = {
+  experimental: {
+    globalNotFound: true,
+  },
   transpilePackages: ["toolbox"],
   webpack: (config) => {
     config.resolve.plugins = [

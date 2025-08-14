@@ -1,0 +1,9 @@
+@import "tailwindcss";
+@import "toolbox/styles/theme.css";
+
+body {
+  font-family: var(--font-dm-sans);
+}
+
+@layer components {
+}

@@ -15,12 +15,15 @@
     "dev:web": "turbo run dev --filter=@apps/top-tokens",
     "dev:hardware": "turbo run dev --filter=@apps/hardware-picker-ai",
     "dev:itfam": "turbo run dev --filter=@apps/itfam",
+    "dev:upwork": "turbo run dev --filter=@apps/upwork",
     "build": "turbo run build",
     "build:web": "turbo run build --filter=@apps/top-tokens",
-    "build:itfam": "turbo run build --filter=@apps/itfam",
     "build:hardware": "turbo run build --filter=@apps/hardware-picker-ai",
+    "build:itfam": "turbo run build --filter=@apps/itfam",
+    "build:upwork": "turbo run build --filter=@apps/upwork",
     "start:web": "turbo run start --filter=@apps/top-tokens",
+    "start:hardware": "turbo run start --filter=@apps/hardware-picker-ai",
     "start:itfam": "turbo run start --filter=@apps/itfam",
-    "start:hardware": "turbo run start --filter=@apps/hardware-picker-ai"
+    "start:upwork": "turbo run start --filter=@apps/upwork"
   }
 }

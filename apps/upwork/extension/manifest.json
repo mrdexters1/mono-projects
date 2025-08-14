@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Upwork Apply Advisor",
+  "version": "0.0.3",
+  "description": "Instantly analyze any Upwork job post and get AI-powered advice on whether it’s worth applying.",
+  "host_permissions": ["https://www.upwork.com/*"],
+  "content_scripts": [
+    {
+      "matches": ["https://www.upwork.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["styles/normalize.css", "styles/basic.css", "styles/app.css", "modules/*"],
+      "matches": ["https://www.upwork.com/*"]
+    }
+  ],
+  "action": {}
+}

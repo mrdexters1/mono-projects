@@ -1,0 +1,15 @@
+export const CHAIN_IDS = {
+  SOLANA: "solana",
+  ETHEREUM: "0x1",
+  ETH: "0x1",
+  BSC: "0x38",
+  POLYGON: "0x89",
+  AVALANCHE: "0xa86a",
+  FANTOM: "0xfa",
+  ARBITRUM: "0xa4b1",
+  OPTIMISM: "0xa",
+  BASE: "0x2105",
+  PULSECHAIN: "0x171",
+  RONIN: "0x7e4",
+  LINEA: "0xe708",
+} as const;

@@ -6,3 +6,5 @@ packages:
 ignoredBuiltDependencies:
   - '@tailwindcss/oxide'
   - sharp
+
+nodeLinker: "hoisted"

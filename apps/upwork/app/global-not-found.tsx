@@ -1,4 +1,5 @@
 import "./globals.css";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 
@@ -24,6 +25,7 @@ export default function GlobalNotFound() {
         <h1>404 - Page Not Found</h1>
         <p>This page does not exist.</p>
       </body>
+      <GoogleAnalytics gaId="G-6SJWM9XFLD" />
     </html>
   );
 }

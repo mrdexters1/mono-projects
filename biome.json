@@ -13,7 +13,6 @@
       }
     }
   },
-
   "formatter": {
     "formatWithErrors": true,
     "enabled": true,

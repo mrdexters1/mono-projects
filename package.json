@@ -3,6 +3,7 @@
   "private": true,
   "packageManager": "pnpm@10.14.0",
   "devDependencies": {
+    "@biomejs/biome": "^2.2.0",
     "@types/node": "^24.3.0",
     "next": "^15.4.6",
     "tsconfig-paths-webpack-plugin": "^4.2.0",

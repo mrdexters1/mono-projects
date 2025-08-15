@@ -11,9 +11,9 @@
   "dependencies": {
     "@next/third-parties": "^15.4.6",
     "lucide-react": "^0.539.0",
-    "next": "catalog:",
-    "react": "catalog:",
-    "react-dom": "catalog:"
+    "next": "15.4.6",
+    "react": "19.1.1",
+    "react-dom": "19.1.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

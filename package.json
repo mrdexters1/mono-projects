@@ -3,8 +3,11 @@
   "private": true,
   "packageManager": "pnpm@10.14.0",
   "devDependencies": {
+    "@types/node": "^24.3.0",
+    "next": "^15.4.6",
     "tsconfig-paths-webpack-plugin": "^4.2.0",
-    "turbo": "^2.5.6"
+    "turbo": "^2.5.6",
+    "typescript": "^5.9.2"
   },
   "scripts": {
     "dev": "turbo run dev --parallel",
@@ -12,13 +15,11 @@
     "dev:hardware": "turbo run dev --filter=./apps/hardware-picker-ai",
     "dev:itfam": "turbo run dev --filter=./apps/itfam",
     "dev:upwork": "turbo run dev --filter=./apps/upwork",
-
     "build": "turbo run build",
     "build:web": "turbo run build --filter=./apps/top-tokens",
     "build:hardware": "turbo run build --filter=./apps/hardware-picker-ai",
     "build:itfam": "turbo run build --filter=./apps/itfam",
     "build:upwork": "turbo run build --filter=./apps/upwork",
-
     "start:web": "turbo run start --filter=./apps/top-tokens",
     "start:hardware": "turbo run start --filter=./apps/hardware-picker-ai",
     "start:itfam": "turbo run start --filter=./apps/itfam",

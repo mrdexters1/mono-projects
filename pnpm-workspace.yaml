@@ -1,7 +1,15 @@
 packages:
-  - apps/*
-  - toolbox
+  - "apps/*"
+  - "packages/*"
+  - "toolbox"
 
+catalog:
+  next: 15.4.6
+  react: 19.1.1
+  react-dom: 19.1.1
+  "@types/react": 19.1.10
+  "@types/react-dom": 19.1.7
+  
 ignoredBuiltDependencies:
   - '@tailwindcss/oxide'
   - sharp

@@ -10,15 +10,14 @@
   },
   "dependencies": {
     "@next/third-parties": "^15.4.6",
-    "next": "15.4.6",
-    "react": "19.1.1",
-    "react-dom": "19.1.1"
+    "lucide-react": "^0.539.0",
+    "next": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^24",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

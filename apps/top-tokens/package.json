@@ -19,11 +19,11 @@
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "tailwind-merge": "^3.3.1",
-    "tailwindcss": "^4.1.11",
+    "tailwindcss": "^4.1.12",
     "toolbox": "file:../../toolbox"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.1.4",
+    "@biomejs/biome": "2.2.0",
     "@types/node": "^24",
     "@types/react": "^19",
     "@types/react-dom": "^19",

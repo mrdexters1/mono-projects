@@ -1,4 +1,3 @@
-// Import global styles and fonts
 import "./globals.css";
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";

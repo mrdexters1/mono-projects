@@ -3,7 +3,83 @@
 
 body {
   font-family: var(--font-dm-sans);
+  background-color: #f9fafb;
+  color: #4b5667;
 }
 
-@layer components {
+.purple {
+  color: #108a00;
+}
+
+.black {
+  color: #030711;
+}
+
+.heading {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.gap-2 {
+  color: #fff;
+  background-color: #108a0060;
+  border-radius: 6px;
+  padding: 12px 24px;
+}
+
+.gap-3 {
+  color: #108a00;
+  background-color: #108a0010;
+  border-radius: 24px;
+  padding: 6px 12px;
+}
+
+.gap-4 {
+  color: #108a00;
+  background-color: #108a0010;
+  border-radius: 24px;
+  padding: 6px 12px;
+}
+
+main {
+  display: flex;
+  height: 100%;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 6px;
+  border-color: #4b566720;
+}
+
+.soon {
+  color: #f75f8f;
+  background-color: #f75f8f20;
+  border-color: #f75f8f30;
+  border-radius: 24px;
+  padding: 4px 8px;
+  font-size: 10px;
+  line-height: 10px;
+  height: fit-content;
+}
+
+.agree {
+  color: #f75f8f;
+  background-color: #f75f8f20;
+  border-color: #f75f8f30;
+  border-radius: 6px;
+  padding: 12px 24px;
+  cursor: pointer;
+  -webkit-transition: 0.3s all ease;
+  -o-transition: 0.3s all ease;
+  transition: 0.3s all ease;
+}
+
+.agree:hover,
+.agree:focus {
+  background-color: #f75f8f30;
+  border-color: #f75f8f30;
+  -webkit-transition: 0.3s all ease;
+  -o-transition: 0.3s all ease;
+  transition: 0.3s all ease;
 }

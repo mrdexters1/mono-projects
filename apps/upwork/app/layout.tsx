@@ -1,3 +1,4 @@
+import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
@@ -26,6 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={dmSans.variable}>{children}</body>
+      <GoogleAnalytics gaId="G-6SJWM9XFLD" />
     </html>
   );
 }

@@ -7,7 +7,9 @@
   "description": "Instantly analyze any Upwork job post and get AI-powered advice on whether it’s worth applying.",
 
   "icons": {
-    "36": "icons/icon-36X36.png",
+    "16": "icons/icon-16X16.png",
+    "24": "icons/icon-24X24.png",
+    "32": "icons/icon-32X32.png",
     "48": "icons/icon-48X48.png",
     "72": "icons/icon-72X72.png",
     "96": "icons/icon-96X96.png",
@@ -17,7 +19,9 @@
   "action": {
     "default_title": "Analyze current Upwork job",
     "default_icon": {
-      "36": "icons/icon-36X36.png",
+      "16": "icons/icon-16X16.png",
+      "24": "icons/icon-24X24.png",
+      "32": "icons/icon-32X32.png",
       "48": "icons/icon-48X48.png",
       "72": "icons/icon-72X72.png",
       "96": "icons/icon-96X96.png",

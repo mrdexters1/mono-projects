@@ -18,8 +18,8 @@ async function analyzeViaServer(payload) {
 }
 
 function createToast(shadow) {
-  let el = null,
-    timer = null;
+  let el = null;
+  let timer = null;
 
   function show(html, { timeout = 0 } = {}) {
     if (el) {
@@ -27,6 +27,7 @@ function createToast(shadow) {
       el.remove();
       el = null;
     }
+
     el = document.createElement("div");
     el.className = "toast";
     el.innerHTML = `
@@ -61,6 +62,8 @@ function createToast(shadow) {
   return { show };
 }
 
+const analysisCache = new Map();
+
 export async function insertAnalyzeButton() {
   if (document.querySelector(`[${HOST_ATTR}]`)) return;
 
@@ -69,7 +72,6 @@ export async function insertAnalyzeButton() {
   const shadow = host.attachShadow({ mode: "open" });
   document.documentElement.appendChild(host);
 
-  // styles
   const readCss = async (path) => (await fetch(chrome.runtime.getURL(path))).text().catch(() => "");
   const [normalizeCss, basicCss, appCss] = await Promise.all([
     readCss("styles/normalize.css"),
@@ -80,7 +82,6 @@ export async function insertAnalyzeButton() {
   style.textContent = `${normalizeCss}\n${basicCss}\n${appCss}`;
   shadow.appendChild(style);
 
-  // FAB
   const btn = document.createElement("button");
   btn.className = "fab";
   btn.setAttribute("aria-label", "Analyze this Upwork job page");
@@ -91,8 +92,17 @@ export async function insertAnalyzeButton() {
 
   const fmtMoneyInt = (n) => (typeof n === "number" && !Number.isNaN(n) ? `$${n.toLocaleString()}` : "—");
   const fmtMoneyCur = (n, cur = "$") => (typeof n === "number" && !Number.isNaN(n) ? `${cur}${n.toFixed(2)}` : "—");
+  const fmtMoney2 = (n) => (typeof n === "number" && !Number.isNaN(n) ? `$${n.toFixed(2)}` : "—");
+  const cap = (s) => (s ? s[0].toUpperCase() + s.slice(1) : s);
 
   btn.addEventListener("click", async () => {
+    const cacheKey = location.href;
+
+    if (analysisCache.has(cacheKey)) {
+      toast.show(analysisCache.get(cacheKey));
+      return;
+    }
+
     btn.disabled = true;
     const originalText = btn.textContent;
     btn.innerHTML = '<div class="spinner"></div>';
@@ -102,14 +112,10 @@ export async function insertAnalyzeButton() {
       const ai = AI_WORKS ? await analyzeViaServer(job) : null;
 
       const m = job.metrics || {};
-      const fmtMoney2 = (n) => (typeof n === "number" && !Number.isNaN(n) ? `$${n.toFixed(2)}` : "—");
-
       const avgVal = typeof m.avgProjectValue === "number" ? fmtMoneyInt(m.avgProjectValue) : "—";
       const avgHr = typeof m.avgHourlyPaid === "number" ? `$${m.avgHourlyPaid}` : "—";
       const hrs = typeof m.totalHours === "number" ? m.totalHours.toLocaleString() : "—";
       const hireRate = m.hireRate != null ? m.hireRate + "%" : "—";
-
-      const cap = (s) => (s ? s[0].toUpperCase() + s.slice(1) : s);
 
       const r = m.recentReviews || {};
       const cur = r.currency || "$";
@@ -118,17 +124,18 @@ export async function insertAnalyzeButton() {
       const aiHtml =
         AI_WORKS && ai
           ? `
-			<div class="ai-info">
-				<p><b>AI analysis</b></p>
-				${ai.html ? content : `<div>${content}</div>`}
-			</div>`
+        <div class="ai-info">
+          <p><b>AI analysis</b></p>
+          ${ai.html ? content : `<div>${content}</div>`}
+        </div>`
           : "";
 
       const cx = m.connects || {};
-
       const applyLine =
         cx.required != null
-          ? `${cx.required} Connects (~${fmtMoney2(cx.costUSD)})${cx.available != null ? ` · Available: ${cx.available}` : ""}`
+          ? `${cx.required} Connects (~${fmtMoney2(cx.costUSD)})${
+              cx.available != null ? ` · Available: ${cx.available}` : ""
+            }`
           : "—";
 
       const html = `
@@ -137,7 +144,7 @@ export async function insertAnalyzeButton() {
             <p><b>Job Info</b></p>
             <p>Type: <b>${job.jobType ? cap(job.jobType) : "—"}</b></p>
             <p>Oriented price: <b>${job.budget?.label || "—"}</b></p>
-			<p>Apply cost: <b>${applyLine}</b></p>
+            <p>Apply cost: <b>${applyLine}</b></p>
           </div>
 
           <div class="info-box">
@@ -155,7 +162,7 @@ export async function insertAnalyzeButton() {
               m.clientCountry ? " &nbsp;·&nbsp; Country: <b>" + escapeHtml(m.clientCountry) + "</b>" : ""
             }</p>
             <p>Spent: <b>${fmtMoneyInt(m.totalSpent)}</b></p>
-            <p>Hired: <b>${m.hiresTotal}</b></p>
+            <p>Hired: <b>${m.hiresTotal ?? "—"}</b></p>
             <p>Avg project value: <b>${avgVal}</b></p>
             <p>Hire rate: <b>${hireRate}</b></p>
             <p>Avg hourly paid: <b>${avgHr}</b></p>
@@ -173,6 +180,8 @@ export async function insertAnalyzeButton() {
           ${aiHtml}
         </div>
       `;
+
+      analysisCache.set(cacheKey, html);
 
       toast.show(html);
     } catch (e) {

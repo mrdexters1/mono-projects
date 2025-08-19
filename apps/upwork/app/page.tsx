@@ -34,7 +34,7 @@ export default function Home() {
 
       <ContactForm />
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
         <Card className="p-6 card">
           <CardHeader className="pb-4">
             <div className="h-12 w-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 gap-4">
@@ -70,6 +70,24 @@ export default function Home() {
             </CardDescription>
           </CardHeader>
         </Card>
+      </div>
+
+      <div className="text-center">
+        <h6 className="text-2xl font-bold mb-6 purple heading">Support</h6>
+        <ul className="text-lg text-muted-foreground mb-6 flex gap-4 justify-center">
+          <li>
+            <a href="mailto:mrdexters1@gmail.com">Email</a>
+          </li>
+          <li>
+            <a
+              href="https://www.linkedin.com/in/vadymwebdev/"
+              target="_blank"
+              rel="noopener nofollow"
+            >
+              Linkedin
+            </a>
+          </li>
+        </ul>
       </div>
     </main>
   );

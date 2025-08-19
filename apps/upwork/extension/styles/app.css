@@ -29,6 +29,36 @@
   box-shadow: 0 16px 34px rgba(0, 0, 0, 0.28);
 }
 
+.fab:disabled {
+  background: #6b7280;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.fab:disabled:hover {
+  transform: none;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid transparent;
+  border-top: 2px solid #fff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 .toast {
   position: fixed;
   right: 20px;
@@ -38,13 +68,14 @@
   padding: 10px 12px;
   border-radius: 12px;
   font:
-    13px / 1.35 system-ui,
+    14px / 1.45 system-ui,
     -apple-system,
     Segoe UI,
     Roboto,
     Arial;
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
-  max-width: 420px;
+  max-width: 740px;
+  width: 100%;
   z-index: 2147483647;
 }
 .toast b {
@@ -69,14 +100,11 @@
 .toast-close:hover {
   background: rgba(255, 255, 255, 0.08);
 }
-.toast-body {
-  max-height: 60vh;
-  overflow: auto;
-}
 
 .info {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: 10px;
   width: 100%;
 }
@@ -85,5 +113,9 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  width: 25%;
+  width: calc(25% - 10px);
+}
+
+.ai-info {
+  width: 100%;
 }

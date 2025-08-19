@@ -42,7 +42,9 @@ export async function POST(req: NextRequest) {
     const data = await n8nRes.json().catch(() => ({}));
     const status = n8nRes.ok ? 200 : 502;
 
-    return new Response(JSON.stringify(data), {
+    const text = (data && (data.text ?? data.output ?? data.answer ?? "")) || "";
+
+    return new Response(JSON.stringify({ text }), {
       status,
       headers: { "Content-Type": "application/json", ...corsHeaders(req) },
     });

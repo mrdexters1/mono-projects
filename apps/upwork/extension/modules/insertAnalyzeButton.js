@@ -1,6 +1,7 @@
 import { analyzeJob } from "./jobAnalysis.js";
 
 const API_MATCH = "https://freelanceai.tech/api/match";
+const AI_WORKS = false;
 const HOST_ATTR = "data-analyze-host";
 
 const escapeHtml = (s) =>
@@ -16,7 +17,6 @@ async function analyzeViaServer(payload) {
   return res.json();
 }
 
-// toast (persistent with close; optional timeout)
 function createToast(shadow) {
   let el = null,
     timer = null;
@@ -90,7 +90,7 @@ export async function insertAnalyzeButton() {
   btn.addEventListener("click", async () => {
     try {
       const job = analyzeJob();
-      const ai = await analyzeViaServer(job);
+      const ai = AI_WORKS ? await analyzeViaServer(job) : null;
 
       const m = job.metrics || {};
       const fmtMoney = (n) => (typeof n === "number" && !Number.isNaN(n) ? `$${n.toLocaleString()}` : "—");
@@ -99,55 +99,54 @@ export async function insertAnalyzeButton() {
       const hrs = typeof m.totalHours === "number" ? m.totalHours.toLocaleString() : "—";
       const hireRate = m.hireRate != null ? m.hireRate + "%" : "—";
 
-      const scorePct = Math.round((ai?.score || 0) * 100);
+      const aiHtml =
+        AI_WORKS && ai
+          ? (() => {
+              const scorePct = Math.round(((ai && ai.score) || 0) * 100);
+              return `
+				\t\t\t\t<div class="ai-info">
+				\t\t\t\t\t<p><b>AI analysis</b></p>
+				\t\t\t\t\t<p>Reply success: <b>${scorePct}%</b></p>
+				\t\t\t\t</div>`;
+            })()
+          : "";
 
       const html = `
-		  <div class="info">
+	  	<div class="info">
 			<div class="info-box">
-			  <p><b>AI analysis</b></p>
-			  <p>Reply success: <b>${scorePct}%</b></p>
-			  ${
-          Array.isArray(ai?.explanations) && ai.explanations.length
-            ? `<p>Why:</p><ul>${ai.explanations
-                .slice(0, 3)
-                .map((s) => `<li>${escapeHtml(s)}</li>`)
-                .join("")}</ul>`
-            : ""
-        }
-			  ${
-          Array.isArray(ai?.tips) && ai.tips.length
-            ? `<p>Tips:</p><ul>${ai.tips
-                .slice(0, 4)
-                .map((s) => `<li>${escapeHtml(s)}</li>`)
-                .join("")}</ul>`
-            : ""
-        }
+				<p><b>Job Info</b></p>
+				<p>Excepted level: <b>${escapeHtml(job.proposals || "—")}</b></p>
+				<p>Oriented price: <b>${m.interviewing ?? 0}</b></p>
 			</div>
-  
+
 			<div class="info-box">
-			  <p><b>Activity on this job</b></p>
-			  <p>Proposals: <b>${escapeHtml(job.proposals || "—")}</b></p>
-			  <p>Interviewing: <b>${m.interviewing ?? 0}</b></p>
-			  <p>Invites: <b>${m.invitesSent ?? 0}</b></p>
-			  <p>Unanswered: <b>${m.unansweredInvites ?? 0}</b></p>
-			  <p>Hired: <b>${m.hiresOnThisJob ?? 0}</b></p>
+				<p><b>Activity on this job</b></p>
+				<p>Proposals: <b>${escapeHtml(job.proposals || "—")}</b></p>
+				<p>Interviewing: <b>${m.interviewing ?? 0}</b></p>
+				<p>Invites: <b>${m.invitesSent ?? 0}</b></p>
+				<p>Unanswered: <b>${m.unansweredInvites ?? 0}</b></p>
+				<p>Hired: <b>${m.hiresOnThisJob ?? 0}</b></p>
 			</div>
-  
+
 			<div class="info-box">
-			  <p><b>About the client</b></p>
-			  <p>Verified: <b>${m.paymentVerified ? "Yes" : "No"}</b>${m.clientCountry ? " · Country: <b>" + escapeHtml(m.clientCountry) + "</b>" : ""}</p>
-			  <p>Spent: <b>${fmtMoney(m.totalSpent)}</b></p>
-			  <p>Jobs posted: <b>${m.jobsPosted ?? "—"}</b></p>
-			  <p>Hire rate: <b>${hireRate}</b></p>
-			  <p>Avg project value: <b>${avgVal}</b></p>
-			  <p>Avg hourly paid: <b>${avgHr}</b> × Hours: <b>${hrs}</b></p>
+				<p><b>About the client</b></p>
+				<p>Verified: <b>${m.paymentVerified ? "Yes" : "No"}</b>${
+          m.clientCountry ? " &nbsp;·&nbsp; Country: <b>" + escapeHtml(m.clientCountry) + "</b>" : ""
+        }</p>
+				<p>Spent: <b>${fmtMoney(m.totalSpent)}</b></p>
+				<p>Jobs posted: <b>${m.jobsPosted ?? "—"}</b></p>
+				<p>Hire rate: <b>${hireRate}</b></p>
+				<p>Avg project value: <b>${avgVal}</b></p>
+				<p>Avg hourly paid: <b>${avgHr}</b> × Hours: <b>${hrs}</b></p>
 			</div>
-  
+
 			<div class="info-box">
-			  <p><b>Client's recent history</b></p>
-			  <p>${m.reviews?.count ? "Recent reviews ≥4.5★: <b>" + m.reviews.positive + "/" + m.reviews.count + "</b>" : "—"}</p>
+				<p><b>Client's recent history</b></p>
+				<p>${m.reviews?.count ? "Recent reviews ≥4.5★: <b>" + m.reviews.positive + "/" + m.reviews.count + "</b>" : ""}</p>
 			</div>
-		  </div>
+
+			${aiHtml}
+		</div>
 		`;
 
       toast.show(html);

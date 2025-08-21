@@ -18,6 +18,7 @@ export async function POST(req: Request) {
     const payload: Record<string, any> = {
       email,
       fields: {},
+      resubscribe: true,
     };
 
     if (name) {

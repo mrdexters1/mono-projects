@@ -65,9 +65,7 @@ export default function Home() {
             <CardTitle className="flex flex-row gap-[4px] text-lg black font-bold mb-2">
               Actionable AI Tips <Badge className="soon">soon</Badge>
             </CardTitle>
-            <CardDescription>
-              Get specific recommendations to improve your profile and proposal strategy
-            </CardDescription>
+            <CardDescription>Get specific recommendations to improve your proposal strategy</CardDescription>
           </CardHeader>
         </Card>
       </div>

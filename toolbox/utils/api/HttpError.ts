@@ -1,4 +1,4 @@
-import { HttpStatus, toScreamingSnakeCase } from "@/toolbox";
+import { HttpStatus, toScreamingSnakeCase } from "../../helpers";
 import { toError } from "../toError";
 
 export namespace HttpError {

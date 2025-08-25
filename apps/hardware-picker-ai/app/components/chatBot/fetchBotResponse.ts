@@ -1,4 +1,4 @@
-import { fetchJSON } from "@/utils/api/fetchJSON";
+import { fetchJSON } from "@utils/api/fetchJSON";
 
 export const fetchBotResponse = async (body: { text: string; sessionId: string }) =>
   await fetchJSON({

@@ -1,5 +1,5 @@
-import type { APILib } from "@/toolbox";
-import { HttpStatus } from "@/toolbox/http";
+import type { APILib } from "../../helpers";
+import { HttpStatus } from "../../helpers";
 import { FetchError } from "./FetchError";
 
 const throwError = (resp: Response, params: { method: string; json: unknown }) => {

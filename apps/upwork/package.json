@@ -6,7 +6,8 @@
     "dev": "next dev -p 3003",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "biome": "biome check .",
+    "biome:fix": "biome check --write ."
   },
   "dependencies": {
     "@next/third-parties": "^15.4.6",

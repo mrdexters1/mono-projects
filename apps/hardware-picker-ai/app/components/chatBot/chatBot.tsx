@@ -1,4 +1,4 @@
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea } from "@ui";
 import { ChatInputForm } from "./ChatInputForm";
 import { ChatMessages } from "./ChatMessages";
 import { type ChatBotProps, useChatBot } from "./useChatBot";

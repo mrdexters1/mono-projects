@@ -1,5 +1,5 @@
-import type { AsType } from "@/toolbox";
-import { Invariant } from "@/toolbox";
+import type { AsType } from "../helpers";
+import { Invariant } from "../helpers";
 
 type ValidParams<V extends Record<string, AsType>> = {
   [K in keyof V]: V[K] extends AsType ? ReturnType<V[K]> : never;

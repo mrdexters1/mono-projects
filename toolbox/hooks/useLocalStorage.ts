@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ifWindow } from "@/toolbox";
+import { ifWindow } from "../helpers";
 
 export const useLocalStorage = <T>(key: string, defaultValue: T | (() => T)) => {
   const [value, setValue] = useState<T>(() =>

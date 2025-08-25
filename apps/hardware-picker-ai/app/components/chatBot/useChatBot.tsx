@@ -1,7 +1,7 @@
 "use client";
 
+import { useLocalStorage } from "@hooks/useLocalStorage";
 import { useCallback, useState } from "react";
-import { useLocalStorage } from "@/hooks/useLocalStorage";
 
 export interface ChatBotMessage {
   sender: "user" | "bot" | "system";

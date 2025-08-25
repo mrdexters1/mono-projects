@@ -1,8 +1,7 @@
 "use client";
 
+import { Button, Input } from "@ui";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 
 export const ChatInputForm = ({ onSubmit }: { onSubmit: (input: string) => void }) => {
   const [input, setInput] = useState("");

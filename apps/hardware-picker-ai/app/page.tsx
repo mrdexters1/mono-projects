@@ -1,10 +1,10 @@
 "use client";
 
+import { ChatHeader } from "@hardware/components/chatBot/ChatHeader";
+import { ChatBot } from "@hardware/components/chatBot/chatBot";
+import { fetchBotResponse } from "@hardware/components/chatBot/fetchBotResponse";
+import { Card, CardContent } from "@ui";
 import { useCallback } from "react";
-import { ChatHeader } from "@/components/chatBot/ChatHeader";
-import { ChatBot } from "@/components/chatBot/chatBot";
-import { fetchBotResponse } from "@/components/chatBot/fetchBotResponse";
-import { Card, CardContent } from "@/components/ui/card";
 
 export default function Home() {
   const fetchBotResponseCurry = useCallback(

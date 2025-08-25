@@ -1,4 +1,4 @@
-import type { TS } from "@/toolbox";
+import type { TS } from ".";
 
 export class Invariant extends Error {
   public static readonly is = (ex: unknown): ex is Invariant => ex instanceof Invariant;

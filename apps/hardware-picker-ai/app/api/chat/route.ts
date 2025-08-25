@@ -1,8 +1,8 @@
+import { asString, isRecord } from "@toolbox/helpers";
+import { fetchJSON } from "@utils/api/fetchJSON";
+import { createParamsValidator } from "@utils/createParamsValidator";
+import { withErrorHandler } from "@utils/withErrorHandler";
 import { NextResponse } from "next/server";
-import { asString, isRecord } from "@/toolbox";
-import { fetchJSON } from "@/utils/api/fetchJSON";
-import { createParamsValidator } from "@/utils/createParamsValidator";
-import { withErrorHandler } from "@/utils/withErrorHandler";
 
 const WEBHOOK_URL = process.env.N8N_WEBHOOK;
 

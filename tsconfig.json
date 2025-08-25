@@ -20,7 +20,9 @@
       "@core/*": ["toolbox/components/core/*"],
       "@lib/*": ["toolbox/lib/*"],
       "@hooks/*": ["toolbox/hooks/*"],
-      "toolbox/*": ["toolbox/*"],
+      "@utils/*": ["toolbox/utils/*"],
+      "@helpers/*": ["toolbox/helpers/*"],
+      "@toolbox/*": ["toolbox/*"],
 
       "@top/*": ["apps/top-tokens/app/*"],
       "@hardware/*": ["apps/hardware-picker-ai/app/*"],

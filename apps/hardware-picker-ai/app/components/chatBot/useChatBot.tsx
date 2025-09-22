@@ -3,19 +3,32 @@
 import { useLocalStorage } from "@hooks/useLocalStorage";
 import { useCallback, useState } from "react";
 
+export interface PCPart {
+  category: string;
+  name: string;
+  alternatives?: string[];
+  notes?: string;
+}
+
+export interface BotResponse {
+  use_case: string;
+  description: string;
+  parts: PCPart[];
+}
+
 export interface ChatBotMessage {
   sender: "user" | "bot" | "system";
-  text: string;
+  text?: string;
+  payload?: BotResponse;
 }
 
 export interface ChatBotProps {
-  fetchBotResponse: (props: { text: string; sessionId: string }) => Promise<string>;
+  fetchBotResponse: (props: { text: string; sessionId: string }) => Promise<{ response: string; data?: BotResponse }>;
   initialMessages: string[];
 }
 
 /**
  * Hook for managing the chatbot
- * @param metadata - metadata for the chatbot (chainId, tokenAddress, pairAddress)
  * @param initialMessages - initial messages
  */
 export function useChatBot({ initialMessages, fetchBotResponse }: ChatBotProps) {
@@ -24,31 +37,33 @@ export function useChatBot({ initialMessages, fetchBotResponse }: ChatBotProps) 
   const [messages, setMessages] = useState<ChatBotMessage[]>(initialMessages.map((text) => ({ sender: "bot", text })));
 
   const addMessage = useCallback(
-    (sender: ChatBotMessage["sender"], text: ChatBotMessage["text"]) =>
-      setMessages((prev) => [...prev, { sender, text }]),
+    (sender: ChatBotMessage["sender"], text?: string, payload?: BotResponse) =>
+      setMessages((prev) => [...prev, { sender, text, payload }]),
     [],
   );
 
   const sendMessage = useCallback(
     async (input: string) => {
       const messageText = input.trim();
-      if (!messageText) {
-        return;
-      }
+      if (!messageText) return;
 
       addMessage("user", messageText);
       setIsResponseLoading(true);
 
-      const botResp = await fetchBotResponse({
-        text: messageText,
-        sessionId,
-      }).catch((err) => {
-        console.error("Chat error:", err);
-        return String(err) ?? "Connection error, try again.";
-      });
+      try {
+        const { response, data } = await fetchBotResponse({ text: messageText, sessionId });
 
-      setIsResponseLoading(false);
-      addMessage("bot", botResp);
+        if (typeof response === "string") {
+          addMessage("bot", response, data);
+        } else {
+          addMessage("bot", undefined, response);
+        }
+      } catch (err) {
+        console.error("Chat error:", err);
+        addMessage("bot", "Connection error, try again.");
+      } finally {
+        setIsResponseLoading(false);
+      }
     },
     [addMessage, sessionId, fetchBotResponse],
   );

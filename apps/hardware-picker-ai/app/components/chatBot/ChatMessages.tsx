@@ -1,5 +1,6 @@
 "use client";
 
+import type { BotResponse, PCPart } from "@hardware/components/chatBot/useChatBot";
 import { useEffect, useRef } from "react";
 import type { ChatBotMessage } from "./useChatBot";
 
@@ -29,6 +30,7 @@ export const ChatMessages = ({
           <ChatBubbleRobot
             key={index}
             text={msg.text}
+            payload={msg.payload}
           />
         ),
       )}
@@ -37,9 +39,14 @@ export const ChatMessages = ({
   );
 };
 
-const ChatBubbleRobot = ({ text }: { text: string }) => <ChatBubble icon="Robot">{text}</ChatBubble>;
+const ChatBubbleRobot = ({ text, payload }: { text?: string; payload?: BotResponse }) => (
+  <ChatBubble icon="Robot">
+    {text && <div>{text}</div>}
+    {payload && <HardwareConfig data={payload} />}
+  </ChatBubble>
+);
 
-const ChatBubbleUser = ({ text }: { text: string }) => <ChatBubble icon="User">{text}</ChatBubble>;
+const ChatBubbleUser = ({ text }: { text?: string }) => <ChatBubble icon="User">{text}</ChatBubble>;
 
 const ChatBubble = ({
   icon,
@@ -49,6 +56,28 @@ const ChatBubble = ({
   <div className={className}>
     <div>{icon}</div>
     <div>{children}</div>
+  </div>
+);
+
+const HardwareConfig = ({ data }: { data: BotResponse }) => (
+  <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+    <p className="text-gray-600 mb-4">{data.description}</p>
+
+    <div className="space-y-3">
+      {data.parts.map((part: PCPart, index: number) => (
+        <div
+          key={index}
+          className="border-l-4 border-blue-500 pl-3"
+        >
+          <div className="font-medium text-blue-700">{part.category}</div>
+          <div className="font-semibold">{part.name}</div>
+          {part.alternatives && (
+            <div className="text-sm text-gray-600">Альтернативы: {part.alternatives.join(", ")}</div>
+          )}
+          {part.notes && <div className="text-sm text-gray-500 mt-1">{part.notes}</div>}
+        </div>
+      ))}
+    </div>
   </div>
 );
 

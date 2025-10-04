@@ -4,9 +4,9 @@ import "./globals.css";
 import Providers from "./components/Providers/Providers";
 import Sidebar from "./components/Sidebar/Sidebar";
 
-const geistSans = Montserrat({
-  variable: "--font-geist-sans",
+const montserrat = Montserrat({
   subsets: ["latin"],
+  variable: "--font-sans",
 });
 
 export const metadata: Metadata = {
@@ -21,24 +21,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} antialiased`}>
+      <body className={`${montserrat.variable} font-sans antialiased`}>
         <Providers>
-          <div className="min-h-screen bg-background text-foreground">
-            <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-hero" />
-              <div className="absolute top-20 left-1/4 w-96 h-96 bg-gradient-glow animate-glow" />
-              <div
-                className="absolute bottom-20 right-1/4 w-96 h-96 bg-gradient-glow animate-glow"
-                style={{ animationDelay: "1s" }}
-              />
+          <div className="relative min-h-screen bg-gradient-hero">
+            <div className="absolute inset-0 bg-gradient-hero" />
+            <div className="absolute top-20 left-1/4 w-96 h-96 bg-gradient-glow animate-glow" />
+            <div
+              className="absolute bottom-20 right-1/4 w-96 h-96 bg-gradient-glow animate-glow"
+              style={{ animationDelay: "1s" }}
+            />
 
-              <div className="container mx-auto px-6 lg:px-12 relative z-10">
-                <div className="grid lg:grid-cols-2 gap-12 items-center">
-                  <main className="flex-1 lg:w-1/2">{children}</main>
-                  <Sidebar />
-                </div>
-              </div>
-            </section>
+            <div className="relative grid grid-cols-1 lg:grid-cols-2 min-h-screen z-10">
+              <aside className="order-1 lg:order-2 flex flex-col justify-center h-full w-full p-8 text-center lg:text-left">
+                <Sidebar />
+              </aside>
+
+              <main className="order-2 lg:order-1 flex flex-col justify-center h-full w-full p-8">{children}</main>
+            </div>
           </div>
         </Providers>
       </body>

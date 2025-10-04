@@ -1,10 +1,15 @@
 "use client";
 
+import { AuthForm } from "@hardware/components/Auth/AuthForm";
 import { fetchBotResponse } from "@hardware/components/chatBot/fetchBotResponse";
+import { Button } from "@ui";
+import { signOut, useSession } from "next-auth/react";
 import { useCallback } from "react";
-import { SignUp } from "./components/Auth/SignIn";
+import { ChatBot } from "./components/chatBot/chatBot";
 
 export default function Home() {
+  const { data: session } = useSession();
+
   const fetchBotResponseCurry = useCallback(
     ({ text, sessionId }: { text: string; sessionId: string }) =>
       fetchBotResponse({
@@ -14,27 +19,29 @@ export default function Home() {
     [],
   );
 
+  if (!session) {
+    return (
+      <div className="max-w-[800px] w-full ml-auto">
+        <div className="max-w-[480px] w-full mx-auto">
+          <AuthForm />
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex items-center justify-center p-6">
-      <SignUp />
+    <div className="h-screen bg-gradient-chat font-inter flex flex-col">
+      <Button
+        onClick={() => signOut()}
+        className="absolute top-4 right-4 bg-red-500 text-white px-4 py-2 rounded"
+      >
+        Logout
+      </Button>
+
+      <ChatBot
+        fetchBotResponse={fetchBotResponseCurry}
+        initialMessages={["Hi there! I'm here to help you build the perfect PC. What do you need?"]}
+      />
     </div>
   );
-
-  // <div className="h-screen bg-gradient-chat font-inter flex flex-col">
-  //
-  //
-  //   дщч
-  //   <ChatHeader />
-  //
-  //   <div className="flex-1 p-4 flex justify-center">
-  //     <Card className="w-full max-w-4xl flex flex-col h-full bg-card/95 backdrop-blur-sm border-border/50">
-  //       <CardContent className="flex-1 flex flex-col p-0">
-  //         <ChatBot
-  //           fetchBotResponse={fetchBotResponseCurry}
-  //           initialMessages={["Hi there! I'm here to help you build the perfect PC. What do you need?"]}
-  //         />
-  //       </CardContent>
-  //     </Card>
-  //   </div>
-  // </div>
 }

@@ -22,24 +22,22 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${montserrat.variable} font-sans antialiased`}>
-        <Providers>
-          <div className="relative min-h-screen bg-gradient-hero">
-            <div className="absolute inset-0 bg-gradient-hero" />
-            <div className="absolute top-20 left-1/4 w-96 h-96 bg-gradient-glow animate-glow" />
-            <div
-              className="absolute bottom-20 right-1/4 w-96 h-96 bg-gradient-glow animate-glow"
-              style={{ animationDelay: "1s" }}
-            />
+        <div className="relative min-h-screen bg-gradient-hero">
+          <div className="absolute inset-0 bg-gradient-hero" />
+          <div className="absolute top-20 left-1/4 w-96 h-96 bg-gradient-glow animate-glow" />
+          <div
+            className="absolute bottom-20 right-1/4 w-96 h-96 bg-gradient-glow animate-glow"
+            style={{ animationDelay: "1s" }}
+          />
 
-            <div className="relative grid grid-cols-1 lg:grid-cols-2 min-h-screen z-10">
-              <aside className="order-1 lg:order-2 flex flex-col justify-center h-full w-full p-8 text-center lg:text-left">
-                <Sidebar />
-              </aside>
+          <div className="relative grid grid-cols-1 lg:grid-cols-2 min-h-screen z-10">
+            <aside className="order-1 lg:order-2 flex flex-col justify-center h-full w-full p-8 text-center lg:text-left">
+              <Sidebar />
+            </aside>
 
-              <main className="order-2 lg:order-1 flex flex-col justify-center h-full w-full p-8">{children}</main>
-            </div>
+            <main className="order-2 lg:order-1 flex flex-col justify-center h-full w-full p-8">{children}</main>
           </div>
-        </Providers>
+        </div>
       </body>
     </html>
   );

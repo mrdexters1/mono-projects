@@ -1,4 +1,13 @@
-import type { FieldError, RegisterOptions, UseFormRegister } from "react-hook-form";
+import type { DefaultSession } from "next-auth";
+import type { FieldError, Path, RegisterOptions, UseFormRegister } from "react-hook-form";
+
+declare module "next-auth" {
+  interface Session {
+    user: {
+      id: string;
+    } & DefaultSession["user"];
+  }
+}
 
 declare global {
   type SignUpFormData = {
@@ -8,14 +17,19 @@ declare global {
     preferredGoal: string;
   };
 
-  type FormInputProps = {
-    name: keyof SignUpFormData;
+  type LoginFormData = {
+    email: string;
+    password: string;
+  };
+
+  type FormInputProps<TFormValues extends Record<string, unknown> = SignUpFormData> = {
+    name: Path<TFormValues>;
     label: string;
     placeholder?: string;
     type?: string;
-    register: UseFormRegister<SignUpFormData>;
+    register: UseFormRegister<TFormValues>;
     error?: FieldError;
-    validation?: RegisterOptions<SignUpFormData, K>;
+    validation?: RegisterOptions<TFormValues>;
     disabled?: boolean;
     value?: string;
   };
@@ -30,7 +44,7 @@ declare global {
     label: string;
     placeholder: string;
     options: readonly Option[];
-    control: Control<any>;
+    control: Control<TFormValues>;
     error?: FieldError;
     required?: boolean;
   };

@@ -13,9 +13,11 @@ export default function Sidebar() {
         </span>
       </h1>
 
-      <div className="text-base sm:text-lg lg:text-xl text-muted-foreground mt-4">
-        <p>Build your ideal PC tailored to your budget, goals, and style - in seconds.</p>
-        <p>AI assistance will guide you smoothly through every step.</p>
+      <div className="text-base sm:text-lg lg:text-xl text-muted-foreground mt-4 max-w-[720px] mx-auto lg:mx-0 lg:mr-auto">
+        <p>
+          Build your ideal PC tailored to your budget, goals, and style - in seconds. AI assistance will guide you
+          smoothly through every step.
+        </p>
       </div>
 
       <div className="relative flex justify-center lg:justify-start">
@@ -24,6 +26,7 @@ export default function Sidebar() {
           alt="Hardware Picker AI Robot Assistant"
           width={400}
           height={600}
+          priority
           className="relative w-full 
 			max-w-[220px] sm:max-w-[280px] 
 			lg:max-w-[350px] xl:max-w-[400px] 

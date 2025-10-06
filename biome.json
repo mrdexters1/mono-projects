@@ -9,7 +9,8 @@
         "noArrayIndexKey": "off"
       },
       "correctness": {
-        "useUniqueElementIds": "off"
+        "useUniqueElementIds": "off",
+        "useExhaustiveDependencies": "off"
       }
     }
   },

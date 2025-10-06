@@ -3,7 +3,7 @@ import { Input } from "@ui/input";
 import { Label } from "@ui/label";
 import { ErrorMessage } from "./ErrorMessage";
 
-export const InputField = ({
+export const InputField = <TFormValues extends Record<string, unknown>>({
   name,
   label,
   placeholder,
@@ -13,18 +13,18 @@ export const InputField = ({
   validation,
   disabled,
   value,
-}: FormInputProps) => {
+}: FormInputProps<TFormValues>) => {
   return (
     <div className="flex flex-col">
       <Label
-        htmlFor={name}
+        htmlFor={String(name)}
         className="text-sm font-medium text-gray-200 mb-2"
       >
         {label}
       </Label>
       <Input
         type={type}
-        id={name}
+        id={String(name)}
         placeholder={placeholder}
         disabled={disabled}
         value={value}
@@ -34,7 +34,6 @@ export const InputField = ({
         )}
         {...register(name, validation)}
       />
-
       <ErrorMessage message={error?.message} />
     </div>
   );

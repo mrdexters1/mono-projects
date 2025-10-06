@@ -1,41 +1,49 @@
 "use client";
 
-import { Button, Input } from "@ui";
+import { Button } from "@ui/button";
+import { Input } from "@ui/input";
+import { Send } from "lucide-react";
 import { useState } from "react";
 
-export const ChatInputForm = ({ onSubmit }: { onSubmit: (input: string) => void }) => {
-  const [input, setInput] = useState("");
-  const [isHotButtonsVisible, setIsHotButtonsVisible] = useState(true);
+export const ChatInputForm = ({ onSubmit, disabled }: { onSubmit: (input: string) => void; disabled?: boolean }) => {
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (message.trim() && !disabled) {
+      onSubmit(message.trim());
+      setMessage("");
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSubmit(e);
+    }
+  };
 
   return (
-    <div>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          onSubmit(input);
-          setInput("");
-          setIsHotButtonsVisible(false);
-        }}
+    <form
+      onSubmit={handleSubmit}
+      className="flex items-center gap-3 max-w-3xl mx-auto"
+    >
+      <Input
+        type="text"
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+        onKeyDown={handleKeyDown}
+        placeholder="Ask Hardware Picker AI anything..."
+        className="flex-1 h-12 rounded-xl bg-background/60 border border-border text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary focus:outline-none"
+      />
+      <Button
+        type="submit"
+        disabled={!message.trim() || disabled}
+        size="icon"
+        className="h-12 w-12 rounded-xl bg-gradient-accent hover:opacity-90 transition flex items-center justify-center"
       >
-        <Button
-          onClick={() => setIsHotButtonsVisible(!isHotButtonsVisible)}
-          size="sm"
-        >
-          {isHotButtonsVisible ? 1 : 2}
-        </Button>
-        <Input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Ask PL8-O anything"
-        />
-        <Button
-          type="submit"
-          size="sm"
-        >
-          3
-        </Button>
-      </form>
-    </div>
+        <Send className="w-5 h-5 text-background stroke-[1.8]" />
+      </Button>
+    </form>
   );
 };

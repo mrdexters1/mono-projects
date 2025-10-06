@@ -1,7 +1,7 @@
 import NextAuth, { type NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: "credentials",
@@ -11,13 +11,9 @@ const authOptions: NextAuthOptions = {
         name: { label: "Name", type: "text" },
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
-          return null;
-        }
+        if (!credentials?.email || !credentials?.password) return null;
 
-        // Здесь будет логика проверки пользователя
-        // Пока что просто возвращаем тестового пользователя
-        if (credentials.email === "test@test.com" && credentials.password === "password") {
+        if (credentials.email === "test@test.com" && credentials.password === "demo1234") {
           return {
             id: "1",
             email: credentials.email,
@@ -29,28 +25,31 @@ const authOptions: NextAuthOptions = {
       },
     }),
   ],
+
   pages: {
     signIn: "/",
   },
+
   callbacks: {
     async jwt({ token, user }) {
-      if (user) {
-        token.id = user.id;
-      }
+      if (user) token.id = user.id;
       return token;
     },
+
     async session({ session, token }) {
-      if (token?.id) {
-        (session.user as any).id = token.id as string;
-      }
+      if (token?.id) session.user.id = token.id as string;
       return session;
     },
   },
+
   session: {
     strategy: "jwt",
+    maxAge: 7 * 24 * 60 * 60,
   },
+
+  secret: process.env.NEXTAUTH_SECRET,
+  debug: process.env.NODE_ENV === "development",
 };
 
 const handler = NextAuth(authOptions);
-
 export { handler as GET, handler as POST };

@@ -13,17 +13,15 @@ export const LoginForm = ({ onSwitch }: AuthFormEnumProps) => {
     handleSubmit,
     setError,
     formState: { errors, isSubmitting },
-  } = useForm<SignUpFormData>({
+  } = useForm<LoginFormData>({
     defaultValues: {
-      fullName: "",
       email: "",
       password: "",
-      preferredGoal: "",
     },
-    mode: "onBlur",
+    mode: "onSubmit",
   });
 
-  const onSubmit = async (data: SignUpFormData) => {
+  const onSubmit = async (data: LoginFormData) => {
     try {
       const result = await signIn("credentials", {
         email: data.email,
@@ -55,6 +53,10 @@ export const LoginForm = ({ onSwitch }: AuthFormEnumProps) => {
           error={errors.email}
           validation={{
             required: "Email is required",
+            pattern: {
+              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              message: "Please enter a valid email address",
+            },
           }}
         />
 
@@ -73,7 +75,7 @@ export const LoginForm = ({ onSwitch }: AuthFormEnumProps) => {
         <Button
           type="submit"
           disabled={isSubmitting}
-          className="w-full h-12 bg-gradient-accent text-background font-semibold rounded-lg transition hover:opacity-90 disabled:opacity-50"
+          className="w-full h-12 bg-gradient-accent text-background font-semibold rounded-lg transition hover:opacity-90 disabled:opacity-50 cursor-pointer"
         >
           Login
         </Button>
@@ -81,21 +83,23 @@ export const LoginForm = ({ onSwitch }: AuthFormEnumProps) => {
 
       {errors.root && <ErrorMessage message={errors.root.message} />}
 
-      <p className="mt-4 text-center">
+      <p className="mt-4 text-center text-md text-muted-foreground">
         Don’t have an account?{" "}
         <Button
+          type="button"
           onClick={() => onSwitch(AuthFormEnum.REGISTER)}
-          className="text-primary cursor-pointer hover:underline"
+          className="text-[hsl(var(--primary))] text-md p-0 bg-transparent hover:bg-transparent font-medium hover:underline hover:brightness-110 transition cursor-pointer"
         >
           Sign Up
         </Button>
       </p>
 
-      <p className="mt-2 text-center">
+      <p className="mt-2 text-center text-sm text-muted-foreground">
         Forgot your password?{" "}
         <Button
+          type="button"
           onClick={() => onSwitch(AuthFormEnum.FORGOT_PASSWORD)}
-          className="text-primary cursor-pointer hover:underline"
+          className="text-[hsl(var(--primary))] p-0 bg-transparent hover:bg-transparent font-medium hover:underline hover:brightness-110 transition cursor-pointer"
         >
           Reset
         </Button>

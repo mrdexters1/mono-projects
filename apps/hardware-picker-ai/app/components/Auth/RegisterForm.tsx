@@ -67,6 +67,10 @@ export const RegisterForm = ({ onSwitch }: AuthFormEnumProps) => {
           error={errors.email}
           validation={{
             required: "Email is required",
+            pattern: {
+              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              message: "Please enter a valid email address",
+            },
           }}
         />
 
@@ -95,7 +99,7 @@ export const RegisterForm = ({ onSwitch }: AuthFormEnumProps) => {
         <Button
           type="submit"
           disabled={isSubmitting}
-          className="w-full h-12 bg-gradient-accent text-background font-semibold rounded-lg transition hover:opacity-90 disabled:opacity-50"
+          className="w-full h-12 bg-gradient-accent text-background font-semibold rounded-lg transition hover:opacity-90 disabled:opacity-50 cursor-pointer"
         >
           {isSubmitting ? "Creating account" : "Start Your Building Journey"}
         </Button>
@@ -103,11 +107,12 @@ export const RegisterForm = ({ onSwitch }: AuthFormEnumProps) => {
 
       {errors.root && <ErrorMessage message={errors.root.message} />}
 
-      <p className="mt-4 text-center">
+      <p className="mt-4 text-center text-md text-muted-foreground">
         Already have an account?{" "}
         <Button
+          type="button"
           onClick={() => onSwitch(AuthFormEnum.LOGIN)}
-          className="text-primary cursor-pointer hover:underline"
+          className="text-[hsl(var(--primary))] text-md p-0 bg-transparent hover:bg-transparent font-medium hover:underline hover:brightness-110 transition cursor-pointer"
         >
           Login
         </Button>

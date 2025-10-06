@@ -26,17 +26,17 @@ const handleBadResponse = async (resp: Response, { json }: { json: unknown }) =>
 
 const getValidBody = createParamsValidator("body", {
   text: asString,
-  sessionId: asString,
+  userId: asString,
 });
 
 export const POST = withErrorHandler(async (req: Request) => {
   const body = await req.json();
-  const { text, sessionId } = getValidBody(body);
+  const { text, userId } = getValidBody(body);
 
   const response = await fetchJSON({
     url: WEBHOOK_URL,
     method: "POST",
-    body: { text, sessionId },
+    body: { text, userId },
     response: isTextResp,
     handleBadResponse,
   });

@@ -27,7 +27,7 @@ export const AuthForm = () => {
   const ActiveForm = forms[view];
 
   return (
-    <div className="w-full max-w-md bg-background/40 p-6 rounded-xl shadow-lg">
+    <div className="p-8">
       <ActiveForm onSwitch={setView} />
     </div>
   );
